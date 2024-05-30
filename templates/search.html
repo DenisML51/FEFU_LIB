@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="/static/CSS/main.css" />
+        <title>Взять книгу</title>
+            {% macro render_genre(relation, list_genre)%}
+            {% for i in range(len(relation)) %}
+            {% set columns = relation.dtypes.index %}
+            {% set id_r = relation.loc[i, columns[0]] %}
+            {% if id_r in list_genre %}
+            {{ relation.loc[i, columns[1]]}},
+            {% endif%}
+            {% endfor%}
+            {% endmacro%}
+            
+            {% macro render_checkbox(name, relation, list_checked, name_check) %}
+            <details open="open">
+                <summary><b>{{ name }}</b></summary>
+                <p>
+                    {% for i in range(len(relation)) %}
+                    {% set columns = relation.dtypes.index %}
+                    {% set id_r = relation.loc[i, columns[0]] %}
+                    <label>
+                        {% if relation.loc[i, columns[0]] in list_checked%}
+                            <input type="checkbox" name="{{ name_check }}[]" value="{{ id_r }}" checked>
+                        {% else %}
+                            <input type="checkbox" name="{{ name_check }}[]" value="{{ id_r }}">
+                        {% endif %}
+                        {{ relation.loc[i, columns[1]] }} ({{ relation.loc[i, columns[2]] }})
+                    </label></br>
+                    {% endfor %}
+                </p>
+            </details>
+            {% endmacro %}
+    
+            {% macro render_book(book, columns) %}
+            <div class="book">
+                {% for column in columns %}
+                {% if column != "book_id" %}
+                {{ column }}: <b>{{ book[column] }}</b><br>
+                {% endif %}
+                {% endfor %}
+                <div align = right>
+                </div>
+            </div>
+
+
+            {% if book['Количество'] != 0 %}
+            <form method="get" action="/">
+                <input type="hidden" name="noselect" value="true">
+                <input type="hidden" name="book_id" value={{book['book_id']}}>
+                <input type="submit" name="Выбрать" value="Выбрать">
+            </form>
+            {% endif %}
+            {% if book['Количество'] == 0 %}
+            <form method="get" action="/">
+                <input type="hidden" name="noselect" value="true">
+                <input type="hidden" name="book_id" value={{book['book_id']}}>
+                <input type="submit" name="Пусто" value="Выбрать">
+            </form>
+            {% endif %}
+
+            
+            {% endmacro %}
+    </head>
+    <body>
+        <div class=menu>
+            <ul>
+                <li class = active><a href={{ url_for('index') }}>Поиск книг</a></li>
+    
+            </ul>
+        </div>
+        <form action="/search" method="get">
+            <div class="cont">
+            <div class="check">{{ render_checkbox('Жанр', genre, list_genre, 'genre') }}</div>
+            <div class="check">{{ render_checkbox('Автор', author, list_author, 'author') }}</div>
+            <div class="check">{{ render_checkbox('Издательство', publisher, list_publisher, 'publisher') }}</div>
+            <input type="hidden" name="reader_id" value="{{ reader_id }}">
+            <input class="submit-buttons" type="submit" value="Найти">
+            <input class="submit-buttons" type="submit" value="Очистить">
+            </div>
+        </form>
+
+        <p>
+            <form action="/" method="get">
+                <input type="hidden" name="noselect" value="true">
+                <input class="submit-buttons" type="submit" value="Не выбирать книгу">
+            </form>
+        </p>
+
+        <div>
+            <b>Жанры:</b>{{render_genre(genre, list_genre)}}<br>
+            <b>Авторы:</b>{{render_genre(author, list_author)}}<br>
+            <b>Издательства:</b>{{render_genre(publisher, list_publisher)}}
+        </div>
+
+
+        <form method="GET">
+            <div class="books">
+              {% set columns = book_search.dtypes.index %}
+              {% for i in range(len(book_search)) %}
+              {% set id_r = book_search.loc[i, 'book_id'] %}
+                <div class="book">
+                  {{ render_book(book_search.loc[i], columns) }}
+                </div>
+              {% endfor %}
+            </div>
+        </form>
+    </body>
+</html>

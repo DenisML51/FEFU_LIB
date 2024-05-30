@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/CSS/main.css" />
+        <title> Новый читатель </title>
+    </head>
+
+    <body>
+        <div class="menu">
+            <ul>
+                <li class="active" style="color:#f8f8f8">Новый читатель</li>
+            </ul>
+        </div>
+        <div class="block">
+            <p>
+                <form action="{{url_for('index')}}" method="get">
+                    <p> Имя читателя
+                        <input type="text" name="new_reader">
+                    </p>
+                    
+                    <p>
+                        <input type="submit" value="Добавить читателя">
+                        <input type="button" onclick="history.back()" value="Отменить">
+                    </p>
+                </form>
+            </p>
+        </div>
+    </body>
+</html>

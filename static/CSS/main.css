@@ -1,0 +1,101 @@
+.menu {
+    background-color: #f1f1f1;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.4);
+    width: 100%;
+   }
+   /*Теперь уберем маркеры со списка и произведем выравнивание его элементов в одну 
+   линию*/
+
+.menu li {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    color: #6f6d6d;
+   }
+
+.menu a {
+    text-decoration: none; /* Убирает подчеркивание для ссылок */
+    color: #6f6d6d;
+    }
+
+.menu li:hover {
+    background-color: #f87777;
+    cursor: pointer;
+    color: #f8f8f8;
+    }
+
+.menu ul {
+    padding: 0px;
+    }  
+
+.active{
+    background-color: #f87777;
+    color: #f8f8f8;
+    }
+
+.active a:visited{
+    color: #f8f8f8;
+    }
+
+.menu a:hover{
+    color: #f8f8f8;
+    }
+    
+.block {
+    padding: 10px 20px;
+    }
+
+.table{
+        border: 1px solid #eee;
+        table-layout: fixed;
+        margin: 5px;
+        float: left;
+        
+    }
+.table th {
+        font-weight: bold;
+        padding: 5px;
+        background: #efefef;
+        border: 1px solid #dddddd;
+    }
+    
+.table td{
+        padding: 5px 10px;
+        border: 1px solid #eee;
+        text-align: left;
+    }
+    
+.table tbody tr:nth-child(odd){
+        background: #fff;
+    }
+    
+.table tbody tr:nth-child(even){
+        background: #F7F7F7;
+    }
+
+.cont{
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 100%;
+        margin-right: 20px;
+        height: 100%;
+        width: 21%;
+        float: left;
+        border-radius: 10px;
+        color: #000000;
+    }
+.check{
+        margin: 3px;
+        padding: 1px;
+    }
+    
+.books{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    
+    }
+.books > .book{
+        border: 1px solid #c4c4c4e9;
+        border-radius: 12px;
+        padding: 10px;
+    }
